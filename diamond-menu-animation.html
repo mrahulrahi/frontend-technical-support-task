@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diamond Menu Animation | Technical Support Task</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family:
+        'Segoe UI',
+        system-ui,
+        -apple-system,
+        sans-serif;
+      background: #060913;
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Nav Styling */
+    .app-nav {
+      background: #0F172A;
+      color: #F8FAFC;
+      padding: 12px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .nav-brand {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.3px;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-item {
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+      color: #94A3B8;
+      background: transparent;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item:hover {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-item.active {
+      color: #FFFFFF;
+      background: #FF6B82;
+      font-weight: 600;
+    }
+
+    .page-wrapper {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    /* Ambient background glow */
+    .bg-glow {
+      width: 550px;
+      height: 550px;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+          rgba(34, 197, 94, 0.15) 0%,
+          rgba(34, 197, 94, 0.08) 50%,
+          rgba(0, 0, 0, 0) 70%);
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .container {
+      max-width: 680px;
+      z-index: 1;
+    }
+
+    /* Wrapper container with ample height to prevent overlaps */
+    .diamond-wrapper {
+      min-height: 440px;
+      margin: 10px 0;
+    }
+
+    /* Outer dashed ring visualizer */
+    .outer-track-ring {
+      width: 270px;
+      height: 270px;
+      border: 2px dashed rgba(34, 197, 94, 0.25);
+      border-radius: 16px;
+      transform: rotate(45deg);
+      pointer-events: none;
+    }
+
+    /* Square box rotated 45 degrees to form a perfect diamond */
+    .diamond-box {
+      width: 220px;
+      height: 220px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 2px solid rgba(34, 197, 94, 0.35);
+      border-radius: 12px;
+      transform: rotate(45deg);
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.7),
+        inset 0 0 20px rgba(34, 197, 94, 0.1);
+      backdrop-filter: blur(16px);
+      transition: all 0.4s ease;
+    }
+
+    .diamond-box.active-hover {
+      border-color: rgba(34, 197, 94, 0.8);
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.8),
+        0 0 30px rgba(34, 197, 94, 0.3);
+    }
+
+    /* Outer track ball indicator */
+    .ball {
+      top: 0;
+      left: 0;
+      width: 26px;
+      height: 26px;
+      background: radial-gradient(circle at 35% 35%,
+          #ffffff,
+          #22c55e 65%,
+          #15803d);
+      border-radius: 50%;
+      box-shadow:
+        0 0 16px #22c55e,
+        0 0 30px rgba(34, 197, 94, 0.9);
+      margin: -13px;
+      z-index: 25;
+      pointer-events: none;
+
+      /* Outer inset motion path */
+      offset-path: inset(-25px round 12px);
+      offset-distance: 0%;
+      will-change: offset-distance;
+      transition:
+        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.3s ease;
+    }
+
+    .ball::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      background: #ffffff;
+      border-radius: 50%;
+    }
+
+    .ball.holding {
+      transform: scale(1.35);
+      box-shadow:
+        0 0 20px #ffffff,
+        0 0 40px #22c55e;
+      animation: ballPulse 1.2s infinite alternate ease-in-out;
+    }
+
+    @keyframes ballPulse {
+      0% {
+        transform: scale(1.25);
+      }
+
+      100% {
+        transform: scale(1.45);
+      }
+    }
+
+    /* Link nodes positioned around outside corners */
+    .link-item {
+      width: 24px;
+      height: 24px;
+      text-decoration: none;
+      color: #94a3b8;
+      z-index: 30;
+      cursor: pointer;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      transition: all 0.35s ease;
+    }
+
+    .link-item:focus {
+      outline: none;
+    }
+
+    .circle-node {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #0f172a;
+      border: 3px solid #22c55e;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.5);
+      transition: all 0.35s ease;
+      flex-shrink: 0;
+    }
+
+    .node-dot-inner {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      transition: all 0.35s ease;
+    }
+
+    .link-label {
+      position: absolute;
+      padding: 6px 14px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      white-space: nowrap;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      transition: all 0.35s ease;
+    }
+
+    .link-top {
+      top: -25px;
+      left: -25px;
+    }
+
+    .link-top .link-label {
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .link-right {
+      top: -25px;
+      left: calc(100% + 25px);
+    }
+
+    .link-right .link-label {
+      left: calc(100% + 10px);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .link-bottom {
+      top: calc(100% + 25px);
+      left: calc(100% + 25px);
+    }
+
+    .link-bottom .link-label {
+      top: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .link-left {
+      top: calc(100% + 25px);
+      left: -25px;
+    }
+
+    .link-left .link-label {
+      right: calc(100% + 10px);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .link-item:hover .link-label,
+    .link-item:focus-visible .link-label {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: #22c55e;
+      color: #22c55e;
+      box-shadow: 0 0 18px rgba(34, 197, 94, 0.5);
+    }
+
+    .link-top:hover .link-label,
+    .link-top:focus-visible .link-label,
+    .link-bottom:hover .link-label,
+    .link-bottom:focus-visible .link-label {
+      transform: translateX(-50%) scale(1.08);
+    }
+
+    .link-right:hover .link-label,
+    .link-right:focus-visible .link-label,
+    .link-left:hover .link-label,
+    .link-left:focus-visible .link-label {
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .link-item:hover .circle-node,
+    .link-item:focus-visible .circle-node {
+      background: #15803d;
+      border-color: #ffffff;
+      box-shadow: 0 0 20px #22c55e;
+      transform: scale(1.25);
+    }
+
+    .link-item:hover .node-dot-inner,
+    .link-item:focus-visible .node-dot-inner {
+      background: #ffffff;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Navigation Header -->
+  <header class="app-nav">
+    <div class="nav-container">
+      <div class="nav-brand">⚡ Pumper Technical Support Task</div>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-item">BOGO Widget</a>
+        <a href="diamond-menu-animation.html" class="nav-item active" aria-current="page">Diamond Menu</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+    <!-- Background Ambient Glow -->
+    <div class="bg-glow position-fixed" aria-hidden="true"></div>
+
+    <div class="container d-flex flex-column align-items-center gap-3 position-relative">
+      <!-- Rotated Diamond Container -->
+      <div class="diamond-wrapper position-relative w-100 d-flex align-items-center justify-content-center">
+        <!-- Dashed Outer Ring -->
+        <div class="outer-track-ring position-absolute" aria-hidden="true"></div>
+
+        <!-- Square Box Rotated 45 degrees -->
+        <div class="diamond-box position-relative" id="diamondBox">
+          <!-- Outer Moving Ball -->
+          <div class="ball position-absolute" id="ball" aria-hidden="true"></div>
+
+          <!-- 1. TOP LINK: Label on Top -->
+          <a href="#top" class="link-item link-top position-absolute d-flex align-items-center justify-content-center"
+            data-pos="0" aria-label="Navigate to Top Section">
+            <div class="link-label">🌌 Link Top</div>
+            <div class="circle-node d-flex align-items-center justify-content-center">
+              <div class="node-dot-inner"></div>
+            </div>
+          </a>
+
+          <!-- 2. RIGHT LINK: Label on Right -->
+          <a href="#right" class="link-item link-right position-absolute d-flex align-items-center justify-content-center"
+            data-pos="25" aria-label="Navigate to Right Section">
+            <div class="circle-node d-flex align-items-center justify-content-center">
+              <div class="node-dot-inner"></div>
+            </div>
+            <div class="link-label">🏙️ Link Right</div>
+          </a>
+
+          <!-- 3. BOTTOM LINK: Label on Bottom -->
+          <a href="#bottom"
+            class="link-item link-bottom position-absolute d-flex align-items-center justify-content-center" data-pos="50"
+            aria-label="Navigate to Bottom Section">
+            <div class="circle-node d-flex align-items-center justify-content-center">
+              <div class="node-dot-inner"></div>
+            </div>
+            <div class="link-label">🌿 Link Bottom</div>
+          </a>
+
+          <!-- 4. LEFT LINK: Label on Left -->
+          <a href="#left" class="link-item link-left position-absolute d-flex align-items-center justify-content-center"
+            data-pos="75" aria-label="Navigate to Left Section">
+            <div class="link-label">🌊 Link Left</div>
+            <div class="circle-node d-flex align-items-center justify-content-center">
+              <div class="node-dot-inner"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ball = document.getElementById('ball');
+    const diamondBox = document.getElementById('diamondBox');
+    const links = document.querySelectorAll('.link-item');
+
+    let currentPos = 0; // Ball current position (0 - 100%)
+    let targetPos = null; // Hovered target position
+    let isHovered = false;
+    const baseSpeed = 0.16; // Smooth continuous rotation speed
+
+    const linkTargets = new Map();
+
+    function calibrateBallTargets() {
+      const prevTransition = ball.style.transition;
+      const prevDistance = ball.style.offsetDistance;
+      ball.style.transition = 'none';
+
+      const COARSE_STEPS = 30;
+      const FINE_STEPS = 20;
+
+      links.forEach((link) => {
+        const node = link.querySelector('.circle-node');
+        const nodeRect = node.getBoundingClientRect();
+        const nodeCenterX = nodeRect.left + nodeRect.width / 2;
+        const nodeCenterY = nodeRect.top + nodeRect.height / 2;
+
+        const distSqAt = (pos) => {
+          ball.style.offsetDistance = pos + '%';
+          const r = ball.getBoundingClientRect();
+          const dx = r.left + r.width / 2 - nodeCenterX;
+          const dy = r.top + r.height / 2 - nodeCenterY;
+          return dx * dx + dy * dy;
+        };
+
+        let bestPos = 0;
+        let bestDistSq = Infinity;
+
+        for (let i = 0; i <= COARSE_STEPS; i++) {
+          const pos = (i / COARSE_STEPS) * 100;
+          const d = distSqAt(pos);
+          if (d < bestDistSq) {
+            bestDistSq = d;
+            bestPos = pos;
+          }
+        }
+
+        const coarseStep = 100 / COARSE_STEPS;
+        const lo = bestPos - coarseStep;
+        const hi = bestPos + coarseStep;
+        for (let i = 0; i <= FINE_STEPS; i++) {
+          const rawPos = lo + ((hi - lo) * i) / FINE_STEPS;
+          const pos = ((rawPos % 100) + 100) % 100;
+          const d = distSqAt(pos);
+          if (d < bestDistSq) {
+            bestDistSq = d;
+            bestPos = pos;
+          }
+        }
+
+        linkTargets.set(link, bestPos);
+      });
+
+      ball.style.transition = prevTransition;
+      ball.style.offsetDistance = prevDistance || '0%';
+    }
+
+    function animate() {
+      if (isHovered && targetPos !== null) {
+        let target = targetPos;
+        if (target < currentPos) {
+          target += 100;
+        }
+        let diff = target - currentPos;
+
+        if (diff > 0.08) {
+          let step = Math.max(diff * 0.12, 0.2);
+          if (step > diff) step = diff;
+          currentPos = (currentPos + step) % 100;
+        } else {
+          currentPos = targetPos;
+        }
+      } else {
+        currentPos = (currentPos + baseSpeed) % 100;
+      }
+
+      ball.style.offsetDistance = currentPos + '%';
+
+      requestAnimationFrame(animate);
+    }
+
+    links.forEach((link) => {
+      const handleEnter = () => {
+        isHovered = true;
+        targetPos = linkTargets.has(link)
+          ? linkTargets.get(link)
+          : parseFloat(link.dataset.pos);
+
+        ball.classList.add('holding');
+        diamondBox.classList.add('active-hover');
+      };
+
+      const handleLeave = () => {
+        isHovered = false;
+        targetPos = null;
+
+        ball.classList.remove('holding');
+        diamondBox.classList.remove('active-hover');
+      };
+
+      link.addEventListener('mouseenter', handleEnter);
+      link.addEventListener('mouseleave', handleLeave);
+      link.addEventListener('focus', handleEnter);
+      link.addEventListener('blur', handleLeave);
+      link.addEventListener('touchstart', handleEnter, { passive: true });
+      link.addEventListener('touchend', handleLeave, { passive: true });
+    });
+
+    if (document.readyState === 'complete') {
+      calibrateBallTargets();
+    } else {
+      window.addEventListener('load', calibrateBallTargets, { once: true });
+    }
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(calibrateBallTargets, 200);
+    });
+
+    requestAnimationFrame(animate);
+  </script>
+</body>
+
+</html>

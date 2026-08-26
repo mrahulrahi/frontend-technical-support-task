@@ -5,22 +5,30 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Front End Technical Support Task</title>
+    <title>BOGO Offers | Front End Technical Support Task</title>
     <!-- Favicon -->
     <link rel="icon" href="include/images/favicon.png" sizes="32x32">
     <!-- Preconnect for Google Fonts to improve load performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
-    <!-- CSS stylesheets -->
-    <!-- Custom styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
     <link href="assets/css/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
+    <!-- Top Navigation Header -->
+    <header class="app-nav">
+        <div class="nav-container">
+            <div class="nav-brand">⚡ Pumper Technical Support Task</div>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-item active" aria-current="page">BOGO Widget</a>
+                <a href="diamond-menu-animation.html" class="nav-item">Diamond Menu</a>
+            </nav>
+        </div>
+    </header>
+
     <!-- ========================== Main Content Start =========================== -->
     <main class="container">
         <div class="card">
@@ -28,9 +36,10 @@
                 <h1>YAY! It’s BOGO</h1>
             </section>
             <section class="card-body">
-                <div class="offer-card" data-offer="1">
+                <!-- Offer Card 1: 1 Unit -->
+                <div class="offer-card" data-offer="1" tabindex="0" role="radio" aria-checked="false" aria-label="1 Unit Offer with 10 percent discount">
                     <div class="offer-card-head">
-                        <input type="radio" name="offer" value="1">
+                        <input type="radio" name="offer" value="1" id="offer-1" tabindex="-1" aria-label="Select 1 Unit offer">
                         <div class="offer-info">
                             <div class="radio-wrapper">
                                 <span class="radio-input"></span>
@@ -49,7 +58,7 @@
                     </div>
                     <div class="offer-card-body">
                         <div class="size-options">
-                            <div class="size-row">
+                            <div class="size-row header-row">
                                 <div></div>
                                 <div class="column-header">Size</div>
                                 <div class="column-header">Colour</div>
@@ -57,46 +66,23 @@
                             <div class="size-row">
                                 <div class="size-label">#1</div>
                                 <div class="select-wrapper">
-                                    <select class="custom-select">
+                                    <select class="custom-select" aria-label="Unit 1 Size">
                                         <option value="">Size</option>
-                                        <option>XS</option>
-                                        <option>S</option>
-                                        <option>M</option>
-                                        <option>L</option>
-                                        <option>XL</option>
-                                        <option>XXL</option>
+                                        <option value="XS">XS</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
                                     </select>
                                 </div>
                                 <div class="select-wrapper">
-                                    <select class="custom-select">
-                                        <option>Colour</option>
-                                        <option>Black</option>
-                                        <option>White</option>
-                                        <option>Blue</option>
-                                        <option>Red</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="size-row">
-                                <div class="size-label">#2</div>
-                                <div class="select-wrapper">
-                                    <select class="custom-select">
-                                        <option value="">Size</option>
-                                        <option>XS</option>
-                                        <option>S</option>
-                                        <option>M</option>
-                                        <option>L</option>
-                                        <option>XL</option>
-                                        <option>XXL</option>
-                                    </select>
-                                </div>
-                                <div class="select-wrapper">
-                                    <select class="custom-select">
-                                        <option>Colour</option>
-                                        <option>Black</option>
-                                        <option>White</option>
-                                        <option>Blue</option>
-                                        <option>Red</option>
+                                    <select class="custom-select" aria-label="Unit 1 Colour">
+                                        <option value="">Colour</option>
+                                        <option value="Black">Black</option>
+                                        <option value="White">White</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Red">Red</option>
                                     </select>
                                 </div>
                             </div>
@@ -104,10 +90,11 @@
                     </div>
                 </div>
 
-                <div class="offer-card" data-offer="2">
+                <!-- Offer Card 2: 2 Units (Default Selected) -->
+                <div class="offer-card" data-offer="2" tabindex="0" role="radio" aria-checked="true" aria-label="2 Units Offer with 20 percent discount - Most Popular">
                     <div class="popular-badge">Most Popular</div>
                     <div class="offer-card-head">
-                        <input type="radio" name="offer" value="2">
+                        <input type="radio" name="offer" value="2" id="offer-2" checked tabindex="-1" aria-label="Select 2 Units offer">
                         <div class="offer-info">
                             <div class="radio-wrapper">
                                 <span class="radio-input"></span>
@@ -120,12 +107,12 @@
                         </div>
                         <div class="offer-price">
                             <div class="current-price">$18.00 USD</div>
-                            <span class="original-price">$24.00 USD</span>
+                            <span class="original-price">$48.00 USD</span>
                         </div>
                     </div>
                     <div class="offer-card-body">
                         <div class="size-options">
-                            <div class="size-row">
+                            <div class="size-row header-row">
                                 <div></div>
                                 <div class="column-header">Size</div>
                                 <div class="column-header">Colour</div>
@@ -133,55 +120,57 @@
                             <div class="size-row">
                                 <div class="size-label">#1</div>
                                 <div class="select-wrapper">
-                                    <select class="custom-select">
+                                    <select class="custom-select" aria-label="Unit 1 Size">
                                         <option value="">Size</option>
-                                        <option>XS</option>
-                                        <option>S</option>
-                                        <option>M</option>
-                                        <option>L</option>
-                                        <option>XL</option>
-                                        <option>XXL</option>
+                                        <option value="XS">XS</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
                                     </select>
                                 </div>
                                 <div class="select-wrapper">
-                                    <select class="custom-select">
-                                        <option>Colour</option>
-                                        <option>Black</option>
-                                        <option>White</option>
-                                        <option>Blue</option>
-                                        <option>Red</option>
+                                    <select class="custom-select" aria-label="Unit 1 Colour">
+                                        <option value="">Colour</option>
+                                        <option value="Black">Black</option>
+                                        <option value="White">White</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Red">Red</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="size-row">
                                 <div class="size-label">#2</div>
                                 <div class="select-wrapper">
-                                    <select class="custom-select">
+                                    <select class="custom-select" aria-label="Unit 2 Size">
                                         <option value="">Size</option>
-                                        <option>XS</option>
-                                        <option>S</option>
-                                        <option>M</option>
-                                        <option>L</option>
-                                        <option>XL</option>
-                                        <option>XXL</option>
+                                        <option value="XS">XS</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
                                     </select>
                                 </div>
                                 <div class="select-wrapper">
-                                    <select class="custom-select">
-                                        <option>Colour</option>
-                                        <option>Black</option>
-                                        <option>White</option>
-                                        <option>Blue</option>
-                                        <option>Red</option>
+                                    <select class="custom-select" aria-label="Unit 2 Colour">
+                                        <option value="">Colour</option>
+                                        <option value="Black">Black</option>
+                                        <option value="White">White</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Red">Red</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="offer-card" data-offer="3">
+
+                <!-- Offer Card 3: 3 Units -->
+                <div class="offer-card" data-offer="3" tabindex="0" role="radio" aria-checked="false" aria-label="3 Units Offer with 30 percent discount">
                     <div class="offer-card-head">
-                         <input type="radio" name="offer" value="3">
+                        <input type="radio" name="offer" value="3" id="offer-3" tabindex="-1" aria-label="Select 3 Units offer">
                         <div class="offer-info">
                             <div class="radio-wrapper">
                                 <span class="radio-input"></span>
@@ -194,12 +183,12 @@
                         </div>
                         <div class="offer-price">
                             <div class="current-price">$24.00 USD</div>
-                            <span class="original-price">$24.00 USD</span>
+                            <span class="original-price">$72.00 USD</span>
                         </div>
                     </div>
                     <div class="offer-card-body">
                         <div class="size-options">
-                            <div class="size-row">
+                            <div class="size-row header-row">
                                 <div></div>
                                 <div class="column-header">Size</div>
                                 <div class="column-header">Colour</div>
@@ -207,46 +196,69 @@
                             <div class="size-row">
                                 <div class="size-label">#1</div>
                                 <div class="select-wrapper">
-                                    <select class="custom-select">
+                                    <select class="custom-select" aria-label="Unit 1 Size">
                                         <option value="">Size</option>
-                                        <option>XS</option>
-                                        <option>S</option>
-                                        <option>M</option>
-                                        <option>L</option>
-                                        <option>XL</option>
-                                        <option>XXL</option>
+                                        <option value="XS">XS</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
                                     </select>
                                 </div>
                                 <div class="select-wrapper">
-                                    <select class="custom-select">
-                                        <option>Colour</option>
-                                        <option>Black</option>
-                                        <option>White</option>
-                                        <option>Blue</option>
-                                        <option>Red</option>
+                                    <select class="custom-select" aria-label="Unit 1 Colour">
+                                        <option value="">Colour</option>
+                                        <option value="Black">Black</option>
+                                        <option value="White">White</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Red">Red</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="size-row">
                                 <div class="size-label">#2</div>
                                 <div class="select-wrapper">
-                                    <select class="custom-select">
+                                    <select class="custom-select" aria-label="Unit 2 Size">
                                         <option value="">Size</option>
-                                        <option>XS</option>
-                                        <option>S</option>
-                                        <option>M</option>
-                                        <option>L</option>
-                                        <option>XL</option>
-                                        <option>XXL</option>
+                                        <option value="XS">XS</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
                                     </select>
                                 </div>
                                 <div class="select-wrapper">
-                                    <select class="custom-select">
-                                        <option>Colour</option>
-                                        <option>Black</option>
-                                        <option>White</option>
-                                        <option>Blue</option>
-                                        <option>Red</option>
+                                    <select class="custom-select" aria-label="Unit 2 Colour">
+                                        <option value="">Colour</option>
+                                        <option value="Black">Black</option>
+                                        <option value="White">White</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Red">Red</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="size-row">
+                                <div class="size-label">#3</div>
+                                <div class="select-wrapper">
+                                    <select class="custom-select" aria-label="Unit 3 Size">
+                                        <option value="">Size</option>
+                                        <option value="XS">XS</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                    </select>
+                                </div>
+                                <div class="select-wrapper">
+                                    <select class="custom-select" aria-label="Unit 3 Colour">
+                                        <option value="">Colour</option>
+                                        <option value="Black">Black</option>
+                                        <option value="White">White</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Red">Red</option>
                                     </select>
                                 </div>
                             </div>
@@ -256,18 +268,23 @@
             </section>
             <section class="card-footer">
                 <div class="delivery-total">
-                    <span class="free-delivery">Free Delivery</span>
-                    <span class="total">Total : <span>$18.00 USD</span></span>
+                    <div class="delivery-info">
+                        <span class="free-delivery">Free Delivery</span>
+                        <span class="savings-tag" id="savings-tag">Save $30.00 USD</span>
+                    </div>
+                    <span class="total">Total : <span id="total-price">$18.00 USD</span></span>
                 </div>
-                <button class="add-to-cart-btn">
-                    <span>+</span>
-                    <span>Add to Cart</span>
+                <button class="add-to-cart-btn" id="add-to-cart-btn">
+                    <span class="btn-icon">+</span>
+                    <span class="btn-text">Add to Cart</span>
                 </button>
                 <div class="powered-by">@ Powered by Pumper</div>
             </section>
         </div>
     </main>
-    <!-- ========================== Main Content End =========================== -->
+
+    <!-- Floating Toast Notification Container -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
 
     <!-- JavaScript Files -->
     <script src="assets/js/script.js"></script>
