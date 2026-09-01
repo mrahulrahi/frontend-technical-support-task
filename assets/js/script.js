@@ -84,12 +84,32 @@
         }
     }
 
-    // Handle keyboard accessibility (Enter/Space key on card)
+    // Handle keyboard accessibility (Enter/Space or Arrow keys on card)
     function handleCardKeydown(event) {
-        if (event.key === 'Enter' || event.key === ' ') {
-            // Avoid toggling if focusing directly inside a select dropdown
-            if (event.target.tagName === 'SELECT') return;
+        if (event.target.tagName === 'SELECT') return;
 
+        const cards = Array.from(elements.offerCards);
+        const currentIndex = cards.indexOf(event.currentTarget);
+
+        if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
+            event.preventDefault();
+            const nextIndex = (currentIndex + 1) % cards.length;
+            const nextCard = cards[nextIndex];
+            if (nextCard) {
+                nextCard.focus();
+                const offerValue = nextCard.getAttribute('data-offer');
+                if (offerValue) updateSelectionState(offerValue);
+            }
+        } else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+            event.preventDefault();
+            const prevIndex = (currentIndex - 1 + cards.length) % cards.length;
+            const prevCard = cards[prevIndex];
+            if (prevCard) {
+                prevCard.focus();
+                const offerValue = prevCard.getAttribute('data-offer');
+                if (offerValue) updateSelectionState(offerValue);
+            }
+        } else if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             const card = event.currentTarget;
             const offerValue = card.getAttribute('data-offer');
